@@ -53,6 +53,7 @@ code { padding: .15rem .35rem; border-radius: .35rem; background: var(--panel-2)
 label { display: grid; gap: .5rem; color: #c7cbd1; font-size: .82rem; font-weight: 700; letter-spacing: .04em; }
 input { width: 100%; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: .75rem; background: #0c0e10; color: white; }
 input:hover { border-color: #464b53; }
+.field-hint { color: var(--muted); font-size: .72rem; font-weight: 400; line-height: 1.4; }
 .primary-button { display: inline-flex; min-height: 3.2rem; align-items: center; justify-content: center; gap: .55rem; padding: .75rem 1.1rem; border: 0; border-radius: .8rem; background: var(--blue); color: #001018; font-weight: 800; cursor: pointer; box-shadow: 0 0 24px rgba(12,182,244,.18); }
 .primary-button:hover { background: #39c7fa; }
 .primary-button:disabled { opacity: .55; cursor: wait; }

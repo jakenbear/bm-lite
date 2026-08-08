@@ -48,9 +48,20 @@ export function AuthPage() {
               name="password"
               type="password"
               autoComplete={mode === "signIn" ? "current-password" : "new-password"}
-              minLength={8}
+              minLength={12}
+              pattern={mode === "signUp" ? "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{12,}" : undefined}
+              title={
+                mode === "signUp"
+                  ? "Use at least 12 characters with uppercase, lowercase, and a number."
+                  : undefined
+              }
               required
             />
+            {mode === "signUp" && (
+              <small className="field-hint">
+                At least 12 characters with uppercase, lowercase, and a number.
+              </small>
+            )}
           </label>
           {error && <p className="form-error">{error}</p>}
           <button className="primary-button" type="submit" disabled={busy}>
