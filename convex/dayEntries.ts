@@ -1,8 +1,8 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
-import { mutationGeneric } from "convex/server";
 import { ConvexError, v } from "convex/values";
+import { mutation } from "./_generated/server";
 
-export const update = mutationGeneric({
+export const update = mutation({
   args: {
     roundId: v.id("rounds"),
     dayIndex: v.number(),

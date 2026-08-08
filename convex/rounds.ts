@@ -1,10 +1,10 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
-import { mutationGeneric, queryGeneric } from "convex/server";
 import { ConvexError, v } from "convex/values";
+import { mutation, query } from "./_generated/server";
 
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
 
-export const getDashboard = queryGeneric({
+export const getDashboard = query({
   args: {},
   handler: async (ctx) => {
     const ownerId = await getAuthUserId(ctx);
@@ -47,7 +47,7 @@ export const getDashboard = queryGeneric({
   },
 });
 
-export const create = mutationGeneric({
+export const create = mutation({
   args: {
     name: v.string(),
     startDate: v.string(),
