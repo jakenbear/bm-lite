@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { Authenticated, AuthLoading, Unauthenticated, useQuery } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
-import { BarChart3, CalendarDays, Dumbbell, History, LogOut } from "lucide-react";
+import { BarChart3, CalendarDays, Download, Dumbbell, History, LogOut } from "lucide-react";
 import { BrowserRouter, Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { AuthPage } from "./features/auth/AuthPage";
 import { RoundMapPage } from "./features/map/RoundMapPage";
@@ -36,9 +37,12 @@ function Tracker() {
             <span className="brand-mark small"><Dumbbell aria-hidden="true" /></span>
             <span><strong>BEAST MODE</strong><small>LITE</small></span>
           </NavLink>
-          <button className="icon-button" type="button" onClick={() => void signOut()} aria-label="Sign out">
-            <LogOut aria-hidden="true" />
-          </button>
+          <div className="topbar-actions">
+            <InstallButton />
+            <button className="icon-button" type="button" onClick={() => void signOut()} aria-label="Sign out">
+              <LogOut aria-hidden="true" />
+            </button>
+          </div>
         </header>
 
         <main className="content">
@@ -60,6 +64,46 @@ function Tracker() {
         </nav>
       </div>
     </BrowserRouter>
+  );
+}
+
+type InstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+};
+
+function InstallButton() {
+  const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
+
+  useEffect(() => {
+    const ready = (event: Event) => {
+      event.preventDefault();
+      setInstallPrompt(event as InstallPromptEvent);
+    };
+    const installed = () => setInstallPrompt(null);
+    window.addEventListener("beforeinstallprompt", ready);
+    window.addEventListener("appinstalled", installed);
+    return () => {
+      window.removeEventListener("beforeinstallprompt", ready);
+      window.removeEventListener("appinstalled", installed);
+    };
+  }, []);
+
+  if (!installPrompt) return null;
+
+  return (
+    <button
+      className="install-button"
+      type="button"
+      onClick={async () => {
+        await installPrompt.prompt();
+        await installPrompt.userChoice;
+        setInstallPrompt(null);
+      }}
+    >
+      <Download aria-hidden="true" />
+      <span>Install app</span>
+    </button>
   );
 }
 

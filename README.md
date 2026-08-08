@@ -10,6 +10,17 @@ Three checks is a **Beast** day, two is **OK**, one is **Lame**, and zero
 **Sucks**. The app includes repeatable rounds, a 90-day map, streaks, completion
 stats, and achievements.
 
+## Install on a phone
+
+The production site is a Progressive Web App (PWA).
+
+- **Android / Chrome:** open the site, sign in, and tap **Install app** in the
+  header. Chrome's **Add to Home screen** menu option also works.
+- **iPhone / Safari:** open the site, tap **Share**, then **Add to Home Screen**.
+
+The installed app opens in its own window and caches the application shell.
+Tracking data still synchronizes through Convex when online.
+
 ## Stack
 
 - React, TypeScript, and Vite
